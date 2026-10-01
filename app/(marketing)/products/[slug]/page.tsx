@@ -10,19 +10,23 @@ export function generateStaticParams() {
 export function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const item = getBySlug(productCategories, params.slug);
-  return item
-    ? pageMetadata(item.title, item.description, `/products/${item.slug}`)
-    : {};
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  return params.then(({ slug }) => {
+    const item = getBySlug(productCategories, slug);
+    return item
+      ? pageMetadata(item.title, item.description, `/products/${item.slug}`)
+      : {};
+  });
 }
 export default function ProductDetail({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const item = getBySlug(productCategories, params.slug);
-  if (!item) notFound();
-  return <DetailPage type="product" item={item} />;
+  return params.then(({ slug }) => {
+    const item = getBySlug(productCategories, slug);
+    if (!item) notFound();
+    return <DetailPage type="product" item={item} />;
+  });
 }

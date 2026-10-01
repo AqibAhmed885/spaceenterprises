@@ -10,19 +10,23 @@ export function generateStaticParams() {
 export function generateMetadata({
   params,
 }: {
-  params: { slug: string };
-}): Metadata {
-  const item = getBySlug(projects, params.slug);
-  return item
-    ? pageMetadata(item.title, item.summary, `/projects/${item.slug}`)
-    : {};
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  return params.then(({ slug }) => {
+    const item = getBySlug(projects, slug);
+    return item
+      ? pageMetadata(item.title, item.summary, `/projects/${item.slug}`)
+      : {};
+  });
 }
 export default function ProjectDetail({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const item = getBySlug(projects, params.slug);
-  if (!item) notFound();
-  return <DetailPage type="project" item={item} />;
+  return params.then(({ slug }) => {
+    const item = getBySlug(projects, slug);
+    if (!item) notFound();
+    return <DetailPage type="project" item={item} />;
+  });
 }
