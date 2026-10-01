@@ -1,0 +1,82 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --color-brand: #102331;
+  --color-brand-dark: #08151f;
+  --color-accent: #c99345;
+  --color-surface: #f6f5f1;
+  --color-text: #36434d;
+  --color-muted: #68737d;
+  --color-border: #dde2e5;
+}
+
+:root {
+  --brand: #102331;
+  --brand-dark: #08151f;
+  --accent: #c99345;
+  --surface: #f6f5f1;
+  --text: #36434d;
+  --muted: #68737d;
+  --border: #dde2e5;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+a {
+  text-decoration: none;
+}
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+::selection {
+  background: var(--accent);
+  color: var(--brand);
+}
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.8rem 0.9rem;
+  color: var(--brand);
+  font: inherit;
+  outline: none;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgb(201 147 69 / 18%);
+}
+textarea {
+  resize: vertical;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
